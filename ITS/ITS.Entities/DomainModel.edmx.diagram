@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="19980e7772194ba5b6859730fb01ad47" Name="Diagram1" ZoomLevel="63" >
+        <EntityTypeShape EntityType="DomainModel.User" Width="1.5" PointX="12.75" PointY="17.875" />
+        <EntityTypeShape EntityType="DomainModel.Issue" Width="1.5" PointX="15" PointY="17.625" />
+        <EntityTypeShape EntityType="DomainModel.Attachment" Width="1.5" PointX="17.25" PointY="16.375" />
+        <EntityTypeShape EntityType="DomainModel.Comment" Width="1.5" PointX="17.25" PointY="19.625" />
+        <EntityTypeShape EntityType="DomainModel.BaseChange" Width="1.5" PointX="12.75" PointY="20.75" />
+        <EntityTypeShape EntityType="DomainModel.IssueChange" Width="1.5" PointX="13.875" PointY="26.5" />
+        <EntityTypeShape EntityType="DomainModel.CommentChange" Width="1.5" PointX="12" PointY="23.5" />
+        <EntityTypeShape EntityType="DomainModel.AttachmentChange" Width="1.5" PointX="15" PointY="23.5" />
+        <AssociationConnector Association="DomainModel.IssueAssignedToUser" />
+        <AssociationConnector Association="DomainModel.UserBaseChange" />
+        <AssociationConnector Association="DomainModel.AttachmentAttachmentChange" />
+        <AssociationConnector Association="DomainModel.IssueAttachment" />
+        <AssociationConnector Association="DomainModel.CommentCommentChange" />
+        <AssociationConnector Association="DomainModel.IssueComment" />
+        <AssociationConnector Association="DomainModel.IssueIssueChange" />
+        <InheritanceConnector EntityType="DomainModel.AttachmentChange" />
+        <InheritanceConnector EntityType="DomainModel.IssueChange" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

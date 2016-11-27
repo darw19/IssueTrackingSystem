@@ -1,0 +1,14 @@
+E:\Projects\ITS\ITS\ITS.Domain\bin\Debug\ITS.Domain.dll.config
+E:\Projects\ITS\ITS\ITS.Domain\bin\Debug\ITS.Domain.dll
+E:\Projects\ITS\ITS\ITS.Domain\bin\Debug\ITS.Domain.pdb
+E:\Projects\ITS\ITS\ITS.Domain\bin\Debug\EntityFramework.dll
+E:\Projects\ITS\ITS\ITS.Domain\bin\Debug\EntityFramework.SqlServer.dll
+E:\Projects\ITS\ITS\ITS.Domain\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+E:\Projects\ITS\ITS\ITS.Domain\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\Projects\ITS\ITS\ITS.Domain\bin\Debug\EntityFramework.xml
+E:\Projects\ITS\ITS\ITS.Domain\bin\Debug\EntityFramework.SqlServer.xml
+E:\Projects\ITS\ITS\ITS.Domain\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+E:\Projects\ITS\ITS\ITS.Domain\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\Projects\ITS\ITS\ITS.Domain\obj\Debug\ITS.Domain.dll
+E:\Projects\ITS\ITS\ITS.Domain\obj\Debug\ITS.Domain.pdb
+E:\Projects\ITS\ITS\ITS.Domain\obj\Debug\ITS.Domain.csprojResolveAssemblyReference.cache

@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DomainModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="DomainModelContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Users" EntityType="DomainModel.User" />
+    <EntitySet Name="Issues" EntityType="DomainModel.Issue" />
+    <EntitySet Name="Attachments" EntityType="DomainModel.Attachment" />
+    <EntitySet Name="Comments" EntityType="DomainModel.Comment" />
+    <EntitySet Name="BaseChanges" EntityType="DomainModel.BaseChange" />
+    <AssociationSet Name="IssueAssignedToUser" Association="DomainModel.IssueAssignedToUser">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Issue" EntitySet="Issues" />
+    </AssociationSet>
+    <AssociationSet Name="UserBaseChange" Association="DomainModel.UserBaseChange">
+      <End Role="User" EntitySet="Users" />
+      <End Role="BaseChange" EntitySet="BaseChanges" />
+    </AssociationSet>
+    <AssociationSet Name="AttachmentAttachmentChange" Association="DomainModel.AttachmentAttachmentChange">
+      <End Role="Attachment" EntitySet="Attachments" />
+      <End Role="AttachmentChange" EntitySet="BaseChanges" />
+    </AssociationSet>
+    <AssociationSet Name="IssueAttachment" Association="DomainModel.IssueAttachment">
+      <End Role="Issue" EntitySet="Issues" />
+      <End Role="Attachment" EntitySet="Attachments" />
+    </AssociationSet>
+    <AssociationSet Name="CommentCommentChange" Association="DomainModel.CommentCommentChange">
+      <End Role="Comment" EntitySet="Comments" />
+      <End Role="CommentChange" EntitySet="BaseChanges" />
+    </AssociationSet>
+    <AssociationSet Name="IssueComment" Association="DomainModel.IssueComment">
+      <End Role="Issue" EntitySet="Issues" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="IssueIssueChange" Association="DomainModel.IssueIssueChange">
+      <End Role="Issue" EntitySet="Issues" />
+      <End Role="IssueChange" EntitySet="BaseChanges" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Email" />
+    </Key>
+    <Property Name="Email" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" Nullable="false" />
+    <Property Name="UserPicture" Type="Binary" Nullable="false" />
+    <NavigationProperty Name="IssuesAssigned" Relationship="DomainModel.IssueAssignedToUser" FromRole="User" ToRole="Issue" />
+    <NavigationProperty Name="BaseChanges" Relationship="DomainModel.UserBaseChange" FromRole="User" ToRole="BaseChange" />
+  </EntityType>
+  <EntityType Name="Issue">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" />
+    <Property Name="Description" Type="String" Nullable="false" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" />
+    <Property Name="UserEmail" Type="String" Nullable="false" />
+    <NavigationProperty Name="AssignedTo" Relationship="DomainModel.IssueAssignedToUser" FromRole="Issue" ToRole="User" />
+    <NavigationProperty Name="Attachments" Relationship="DomainModel.IssueAttachment" FromRole="Issue" ToRole="Attachment" />
+    <NavigationProperty Name="Comments" Relationship="DomainModel.IssueComment" FromRole="Issue" ToRole="Comment" />
+    <NavigationProperty Name="IssueChanges" Relationship="DomainModel.IssueIssueChange" FromRole="Issue" ToRole="IssueChange" />
+  </EntityType>
+  <EntityType Name="Attachment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <Property Name="BinaryData" Type="Binary" Nullable="false" />
+    <Property Name="Size" Type="Int64" Nullable="false" />
+    <Property Name="FileType" Type="String" Nullable="false" />
+    <Property Name="IssueId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AttachmentChanges" Relationship="DomainModel.AttachmentAttachmentChange" FromRole="Attachment" ToRole="AttachmentChange" />
+    <NavigationProperty Name="Issue" Relationship="DomainModel.IssueAttachment" FromRole="Attachment" ToRole="Issue" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Text" Type="String" Nullable="false" />
+    <Property Name="IssueId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CommentChanges" Relationship="DomainModel.CommentCommentChange" FromRole="Comment" ToRole="CommentChange" />
+    <NavigationProperty Name="Issue" Relationship="DomainModel.IssueComment" FromRole="Comment" ToRole="Issue" />
+  </EntityType>
+  <EntityType Name="BaseChange">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserEmail" Type="String" Nullable="false" />
+    <Property Name="TimeOfChange" Type="DateTime" Nullable="false" />
+    <Property Name="TypeOfChange" Type="String" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="DomainModel.UserBaseChange" FromRole="BaseChange" ToRole="User" />
+  </EntityType>
+  <EntityType Name="IssueChange" BaseType="DomainModel.BaseChange">
+    <Property Name="IssueId" Type="Int32" Nullable="false" />
+    <Property Name="OldValue" Type="String" Nullable="false" />
+    <Property Name="NewValue" Type="String" Nullable="false" />
+    <NavigationProperty Name="Issue" Relationship="DomainModel.IssueIssueChange" FromRole="IssueChange" ToRole="Issue" />
+  </EntityType>
+  <EntityType Name="CommentChange" BaseType="DomainModel.BaseChange">
+    <Property Name="CommentId" Type="Int32" Nullable="false" />
+    <Property Name="NewValue" Type="String" Nullable="false" />
+    <NavigationProperty Name="Comment" Relationship="DomainModel.CommentCommentChange" FromRole="CommentChange" ToRole="Comment" />
+  </EntityType>
+  <EntityType Name="AttachmentChange" BaseType="DomainModel.BaseChange">
+    <Property Name="AttachmentId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Attachment" Relationship="DomainModel.AttachmentAttachmentChange" FromRole="AttachmentChange" ToRole="Attachment" />
+  </EntityType>
+  <Association Name="IssueAssignedToUser">
+    <End Type="DomainModel.User" Role="User" Multiplicity="1" />
+    <End Type="DomainModel.Issue" Role="Issue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Email" />
+      </Principal>
+      <Dependent Role="Issue">
+        <PropertyRef Name="UserEmail" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserBaseChange">
+    <End Type="DomainModel.User" Role="User" Multiplicity="1" />
+    <End Type="DomainModel.BaseChange" Role="BaseChange" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Email" />
+      </Principal>
+      <Dependent Role="BaseChange">
+        <PropertyRef Name="UserEmail" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AttachmentAttachmentChange">
+    <End Type="DomainModel.Attachment" Role="Attachment" Multiplicity="1" />
+    <End Type="DomainModel.AttachmentChange" Role="AttachmentChange" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Attachment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AttachmentChange">
+        <PropertyRef Name="AttachmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IssueAttachment">
+    <End Type="DomainModel.Issue" Role="Issue" Multiplicity="1" />
+    <End Type="DomainModel.Attachment" Role="Attachment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Issue">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Attachment">
+        <PropertyRef Name="IssueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CommentCommentChange">
+    <End Type="DomainModel.Comment" Role="Comment" Multiplicity="1" />
+    <End Type="DomainModel.CommentChange" Role="CommentChange" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Comment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CommentChange">
+        <PropertyRef Name="CommentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IssueComment">
+    <End Type="DomainModel.Issue" Role="Issue" Multiplicity="1" />
+    <End Type="DomainModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Issue">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="IssueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IssueIssueChange">
+    <End Type="DomainModel.Issue" Role="Issue" Multiplicity="1" />
+    <End Type="DomainModel.IssueChange" Role="IssueChange" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Issue">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IssueChange">
+        <PropertyRef Name="IssueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

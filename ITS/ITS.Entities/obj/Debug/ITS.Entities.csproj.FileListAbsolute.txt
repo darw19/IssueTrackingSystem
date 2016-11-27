@@ -1,0 +1,9 @@
+E:\Projects\ITS\ITS\ITS.Entities\bin\Debug\ITS.Entities.dll.config
+E:\Projects\ITS\ITS\ITS.Entities\bin\Debug\ITS.Entities.dll
+E:\Projects\ITS\ITS\ITS.Entities\bin\Debug\ITS.Entities.pdb
+E:\Projects\ITS\ITS\ITS.Entities\bin\Debug\EntityFramework.dll
+E:\Projects\ITS\ITS\ITS.Entities\bin\Debug\EntityFramework.SqlServer.dll
+E:\Projects\ITS\ITS\ITS.Entities\bin\Debug\EntityFramework.xml
+E:\Projects\ITS\ITS\ITS.Entities\bin\Debug\EntityFramework.SqlServer.xml
+E:\Projects\ITS\ITS\ITS.Entities\obj\Debug\ITS.Entities.dll
+E:\Projects\ITS\ITS\ITS.Entities\obj\Debug\ITS.Entities.pdb
