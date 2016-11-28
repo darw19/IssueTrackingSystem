@@ -56,7 +56,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IAttachmentChangeRepository.cs" />
+    <Compile Include="Abstract\IAttachmentRepository.cs" />
+    <Compile Include="Abstract\IBaseChangeRepository.cs" />
+    <Compile Include="Abstract\ICommentChangeRepository.cs" />
+    <Compile Include="Abstract\ICommentRepository.cs" />
+    <Compile Include="Abstract\IIssueChangeRepository.cs" />
+    <Compile Include="Abstract\IIssueRepository.cs" />
+    <Compile Include="Abstract\IUserRepository.cs" />
     <Compile Include="Concrete\ApplicationDbContext.cs" />
+    <Compile Include="Concrete\EFAttachmentChangeRepository.cs" />
+    <Compile Include="Concrete\EFIssueRepository.cs" />
+    <Compile Include="Concrete\EFUserRepository.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Attachment.cs" />
     <Compile Include="Entities\AttachmentChange.cs" />
@@ -72,9 +83,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Abstract\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,0 +1,8 @@
+﻿@model ITS.Domain.Concrete.EFIssueRepository
+
+<h2>Index</h2>
+
+@foreach(var x in Model.Issues)
+{
+    <h1>@x.Title</h1>
+}

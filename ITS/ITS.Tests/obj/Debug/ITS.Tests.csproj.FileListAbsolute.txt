@@ -44,3 +44,10 @@ E:\Projects\ITS\ITS\ITS.Tests\obj\Debug\ITS.Tests.dll
 E:\Projects\ITS\ITS\ITS.Tests\obj\Debug\ITS.Tests.pdb
 E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\ITS.Domain.dll
 E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\ITS.Domain.pdb
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Ninject.Web.Common.dll
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Ninject.dll
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\WebActivator.dll
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Ninject.Web.Common.pdb
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Ninject.Web.Common.xml
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Ninject.pdb
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Ninject.xml
