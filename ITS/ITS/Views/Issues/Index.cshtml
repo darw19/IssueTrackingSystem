@@ -2,7 +2,30 @@
 
 <h2>Index</h2>
 
+@if (Request.IsAuthenticated)
+{
+    
+<table border="1">
+    <col width="200px" />
+    <col width="300px" />
+    <col width="200px" />
+ <tr>
+    <th>Title</th>
+    <th>Created On</th>
+    <th>Created By</th>
+</tr>
+
 @foreach(var x in Model.Issues)
 {
-    <h1>@x.Title</h1>
+    <tr>
+        <td>@x.Title</td>
+        <td>@x.CreatedOn</td>
+        <td>@x.UserEmail</td>
+    </tr>
+}
+
+</table>
+} else
+{
+<h1>You don't have permissions to view this page</h1>
 }
