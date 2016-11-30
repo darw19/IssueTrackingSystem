@@ -18,7 +18,7 @@
 @foreach(var x in Model.Issues)
 {
     <tr>
-        <td>@x.Title</td>
+        <td>@Html.ActionLink(x.Title, "Issue", "SingleIssue", new { issueId = x.Id }, null)</td>
         <td>@x.CreatedOn</td>
         <td>@x.UserEmail</td>
     </tr>

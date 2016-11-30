@@ -7,8 +7,7 @@ namespace ITS.Domain.Abstract
     {
 
         IEnumerable<Issue> Issues { get; }
-
-        //void SaveProduct(Issue product);
+        void SaveIssue(Issue issue);
 
         //Issue DeleteProduct(int productID);
     }

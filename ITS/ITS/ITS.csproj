@@ -179,6 +179,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IssuesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SingleIssueController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -249,6 +250,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Issues\Index.cshtml" />
+    <Content Include="Views\SingleIssue\Issue.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

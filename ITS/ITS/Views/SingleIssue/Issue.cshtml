@@ -1,0 +1,62 @@
+﻿@model ITS.Domain.Entities.Issue
+
+
+@{
+    ViewBag.Title = "Issue";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    label, input { display:block; }
+    input.text { margin-bottom:12px; width:95%; padding: .4em; }
+</style>
+
+
+    <h2>@Model.Title</h2>
+
+    <h3>@Model.Description</h3>
+
+<div id="edit-dialog" title="Edit issue" class="order_bg" style="display:none">
+    @using (Html.BeginForm("Issue", "SingleIssue", FormMethod.Post, new { @id="sForm"}))
+    {
+        @Html.HiddenFor(x => x.Id)
+        @Html.TextBoxFor(x => x.Title)
+        @Html.TextAreaFor(x => x.Description)
+        @Html.HiddenFor(x => x.AssignedTo)        
+    }
+</div>
+
+<div class="sidecontent">
+    <a class="modalorder" href="#">
+        Edit details        
+    </a>
+
+</div>
+@section Scripts
+{
+<script type="text/javascript">
+    $(function () {
+        console.log("HELLO");
+        var dial;
+        dial = $(".order_bg").dialog({
+            height: 400,
+            width: 350,
+            modal: true,
+            autoOpen: false,
+            buttons: {
+                "Apply": function () {
+                    console.log("Submitting");
+                    document.getElementById("sForm").submit();
+                },
+                "Cancel": function() {
+                    dial.dialog("close");
+                }
+            }                        
+        });
+
+        $(".modalorder").button().on("click", function () {
+            dial.dialog("open");
+            console.log("Sdfgfg");
+        });
+    });
+</script>
+}

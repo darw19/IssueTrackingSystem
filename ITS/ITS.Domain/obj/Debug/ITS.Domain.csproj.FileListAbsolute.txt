@@ -11,3 +11,4 @@ E:\Projects\ITS\ITS\ITS.Domain\bin\Debug\Microsoft.AspNet.Identity.Core.xml
 E:\Projects\ITS\ITS\ITS.Domain\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 E:\Projects\ITS\ITS\ITS.Domain\obj\Debug\ITS.Domain.dll
 E:\Projects\ITS\ITS\ITS.Domain\obj\Debug\ITS.Domain.pdb
+E:\Projects\ITS\ITS\ITS.Domain\obj\Debug\ITS.Domain.csprojResolveAssemblyReference.cache

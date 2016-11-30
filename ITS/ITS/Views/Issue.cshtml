@@ -1,0 +1,53 @@
+﻿@model ITS.Domain.Entities.Issue
+
+
+@{
+    ViewBag.Title = "Issue";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    label, input { display:block; }
+</style>
+
+
+    <h2>@Model.Title</h2>
+
+    <h3>@Model.Description</h3>
+
+<div id="edit-dialog" title="Edit issue" class="order_bg" style="display:none">
+    @using (Html.BeginForm())
+    {
+        @Html.TextBoxFor(x => x.Title)
+        @Html.TextAreaFor(x => x.Description)
+        <input type="submit" value="Apply">
+    }
+</div>
+
+<div class="sidecontent">
+    <a class="modalorder" href="#">
+        Edit details        
+    </a>
+
+</div>
+@section Scripts
+{
+<script type="text/javascript">
+    $(function () {
+        var dial;
+        dial = $(".order_bg").dialog({
+            height: 400,
+            width: 350,
+            modal: true,
+            autoOpen: false
+        });
+
+        $(".modalorder").button().on("click", function () {
+            dial.dialog("open");
+            $(".order_bg").show();
+            console.log("Sdfgfg");
+        });
+
+    });
+</script>
+}

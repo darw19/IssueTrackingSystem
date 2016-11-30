@@ -11,5 +11,23 @@ namespace ITS.Domain.Concrete
         {
             get { return context.Issues; }
         }
+
+        public void SaveIssue(Issue issue)
+        {
+            if (issue.Id == 0)
+            {
+                context.Issues.Add(issue);
+            } else
+            {
+                Issue dbEntry = context.Issues.Find(issue.Id);
+                if (dbEntry != null)
+                {
+                    dbEntry.Title = issue.Title;
+                    dbEntry.Description = issue.Description;
+                    dbEntry.AssignedTo = issue.AssignedTo;
+                    context.SaveChanges();
+                }
+            }
+        }
     }
 }
