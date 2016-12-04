@@ -15,16 +15,9 @@
 
     <h3>@Model.Description</h3>
 
-<div id="edit-dialog" title="Edit issue" class="order_bg" style="display:none">
-    @using (Html.BeginForm("Issue", "SingleIssue", FormMethod.Post, new { @id="sForm"}))
-    {
-        @Html.HiddenFor(x => x.Id)
-        @Html.TextBoxFor(x => x.Title)
-        @Html.TextAreaFor(x => x.Description)
-        @Html.HiddenFor(x => x.AssignedTo)        
-    }
-</div>
-
+@{
+    Html.RenderPartial("~/Views/Shared/_IssuePartial.cshtml", Model);
+}
 <div class="sidecontent">
     <a class="modalorder" href="#">
         Edit details        

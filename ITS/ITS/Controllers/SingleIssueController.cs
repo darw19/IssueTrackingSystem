@@ -19,7 +19,6 @@ namespace ITS.Controllers
         [HttpGet] 
         public ActionResult Issue(int? issueId)
         {
-            issueId = 1;
             return View(m_Repository.Issues.First(x => (x.Id == issueId)));
         }
 

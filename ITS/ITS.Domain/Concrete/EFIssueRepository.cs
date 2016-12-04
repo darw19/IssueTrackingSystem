@@ -14,20 +14,20 @@ namespace ITS.Domain.Concrete
 
         public void SaveIssue(Issue issue)
         {
-            if (issue.Id == 0)
-            {
-                context.Issues.Add(issue);
-            } else
-            {
+            System.Diagnostics.Debug.WriteLine(issue.Id);
                 Issue dbEntry = context.Issues.Find(issue.Id);
                 if (dbEntry != null)
                 {
                     dbEntry.Title = issue.Title;
                     dbEntry.Description = issue.Description;
                     dbEntry.AssignedTo = issue.AssignedTo;
-                    context.SaveChanges();
                 }
-            }
+                else
+                {
+                    issue.CreatedOn = System.DateTime.Now;
+                    context.Issues.Add(issue);
+                }
+                context.SaveChanges();
         }
     }
 }

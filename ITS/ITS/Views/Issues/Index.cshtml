@@ -4,7 +4,19 @@
 
 @if (Request.IsAuthenticated)
 {
-    
+    <div>
+        @{
+    var issue = new ITS.Domain.Entities.Issue();
+    Html.RenderPartial("~/Views/Shared/_IssuePartial.cshtml", issue);
+    }
+    <div class="sidecontent">
+        <a class="modalorder" href="#">
+            Create issue
+        </a>
+    </div>
+    </div>
+
+
 <table border="1">
     <col width="200px" />
     <col width="300px" />
@@ -14,8 +26,7 @@
     <th>Created On</th>
     <th>Created By</th>
 </tr>
-
-@foreach(var x in Model.Issues)
+@foreach (var x in Model.Issues)
 {
     <tr>
         <td>@Html.ActionLink(x.Title, "Issue", "SingleIssue", new { issueId = x.Id }, null)</td>
@@ -28,4 +39,35 @@
 } else
 {
 <h1>You don't have permissions to view this page</h1>
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            console.log("HELLO");
+            var dial;
+            dial = $(".order_bg").dialog({
+                height: 400,
+                width: 350,
+                modal: true,
+                autoOpen: false,
+                buttons: {
+                    "Create": function () {
+                        console.log("Submitting");
+                        document.getElementById("sForm").submit();
+                    },
+                    "Cancel": function () {
+                        console.log("close");
+                        dial.dialog("close");
+                    }
+                }
+            });
+
+            $(".modalorder").button().on("click", function () {
+                dial.dialog("open");
+                console.log("Sdfgfg");
+            });
+        });
+    </script>
 }
