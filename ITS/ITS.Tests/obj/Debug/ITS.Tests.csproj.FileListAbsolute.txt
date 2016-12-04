@@ -47,7 +47,12 @@ E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\ITS.Domain.pdb
 E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Ninject.Web.Common.dll
 E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Ninject.dll
 E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\WebActivator.dll
-E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Ninject.Web.Common.pdb
 E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Ninject.Web.Common.xml
-E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Ninject.pdb
 E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Ninject.xml
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Ninject.Web.Mvc.dll
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\WebActivatorEx.dll
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Ninject.Web.Mvc.xml
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Castle.Core.dll
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Moq.dll
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Castle.Core.xml
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Moq.xml

@@ -7,6 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+/*
+VALID TYPES OF CHANGES:
+CREATION
+MODIFICATION
+ */ 
 namespace ITS.Domain.Entities
 {
     using System;

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ITS.Domain.Entities;
 using ITS.Domain.Abstract;
+using ITS.Models;
 
 namespace ITS.Controllers
 {
@@ -16,11 +17,22 @@ namespace ITS.Controllers
             this.m_Repository = repository;
         }
 
-        [HttpGet] 
-        public ActionResult Issue(int? issueId)
+        private Issue getCurrentIssue(int? issueId)
         {
-            issueId = 1;
-            return View(m_Repository.Issues.First(x => (x.Id == issueId)));
+            //TODO: Used for debugging - remove 
+            if (issueId != null)
+            {
+                return m_Repository.Issues.First(x => (x.Id == issueId));
+            } else
+            {
+                throw new NullReferenceException("Attempt to create issue without ID");
+            }
+        }
+
+        [HttpGet] 
+        public ViewResult Issue(int? issueId)
+        {
+            return View(getCurrentIssue(issueId));
         }
 
         [HttpPost]
@@ -28,6 +40,46 @@ namespace ITS.Controllers
         {
             m_Repository.SaveIssue(issue);
             return RedirectToAction("Index", "Issues");
+        }
+
+        [HttpGet]
+        public ViewResult AddComment(int? issueId)
+        {
+            Comment newComment = new Comment();
+            newComment.IssueId = issueId;
+            return View(newComment);
+        }
+
+        [HttpPost]
+        public ActionResult AddComment(CommentViewModel commentVM)
+        {
+            bool creatingNewComment = commentVM.Comment.Id == 0;
+            Issue currentIssue = getCurrentIssue(commentVM.Comment.IssueId);
+            CommentChange currentChange = new CommentChange()
+            {
+                UserEmail = commentVM.UserEmail,
+                NewValue = commentVM.Comment.Text,
+                TimeOfChange = System.DateTime.Now,
+                TypeOfChange = creatingNewComment ? "CREATION" : "MODIFICATION",
+            };
+
+            //If this is a new comment
+            if (creatingNewComment)
+            {
+                currentChange.Comment = commentVM.Comment;
+                commentVM.Comment.CommentChanges.Add(currentChange);
+                currentIssue.Comments.Add(commentVM.Comment);
+            }
+            else 
+            {
+                Comment commentToUpdate = currentIssue.Comments.First(x => x.Id == commentVM.Comment.Id);
+                currentChange.Comment = commentToUpdate;
+                currentChange.CommentId = commentToUpdate.Id;
+                commentToUpdate.CommentChanges.Add(currentChange);
+                commentToUpdate.Text = commentVM.Comment.Text;
+            }
+            m_Repository.SaveIssue(currentIssue);
+            return RedirectToAction("Issue", "SingleIssue", new { issueId = commentVM.Comment.IssueId });
         }
     }
 }

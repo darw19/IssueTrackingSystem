@@ -1,0 +1,10 @@
+﻿@model ITS.Models.CommentViewModel
+
+@using (Html.BeginForm("AddComment", "SingleIssue", FormMethod.Post, new { @id = "eForm" }))
+{
+    @Html.HiddenFor(x => x.Comment.Id)
+    @Html.HiddenFor(x => x.Comment.IssueId)
+    @Html.HiddenFor(x => x.UserEmail)
+    @Html.TextAreaFor(x => x.Comment.Text)
+    <input type="submit" value="Save Change">
+}

@@ -1,0 +1,25 @@
+﻿@model ITS.Models.CommentViewModel
+@using Microsoft.AspNet.Identity
+
+<style>
+    label, input {
+        display: block;
+    }
+
+    input.text {
+        margin-bottom: 12px;
+        width: 95%;
+        padding: .4em;
+    }
+
+
+</style>
+
+<div id="add-comment" title="Add Comment" class="order_bg_2" style="display:none">
+    @using (Html.BeginForm("AddComment", "SingleIssue", FormMethod.Post, new { @id = "acForm" }))
+    {
+        @Html.HiddenFor(x => x.UserEmail)
+        @Html.HiddenFor(x => x.Comment.IssueId)
+        @Html.TextAreaFor(x => x.Comment.Text)
+    }
+</div>
