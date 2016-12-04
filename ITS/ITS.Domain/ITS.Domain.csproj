@@ -64,13 +64,16 @@
     <Compile Include="Abstract\IIssueChangeRepository.cs" />
     <Compile Include="Abstract\IIssueRepository.cs" />
     <Compile Include="Abstract\IUserRepository.cs" />
+    <Compile Include="Abstract\IWorkLogsRepository.cs" />
     <Compile Include="Concrete\ApplicationDbContext.cs" />
     <Compile Include="Concrete\EFAttachmentChangeRepository.cs" />
+    <Compile Include="Concrete\EFAttachmentRepository.cs" />
     <Compile Include="Concrete\EFBaseChangeRepository.cs" />
     <Compile Include="Concrete\EFCommentChangeRepository.cs" />
     <Compile Include="Concrete\EFCommentRepository.cs" />
     <Compile Include="Concrete\EFIssueRepository.cs" />
     <Compile Include="Concrete\EFUserRepository.cs" />
+    <Compile Include="Concrete\EFWorkLogRepository.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Attachment.cs" />
     <Compile Include="Entities\AttachmentChange.cs" />
@@ -79,6 +82,7 @@
     <Compile Include="Entities\CommentChange.cs" />
     <Compile Include="Entities\Issue.cs" />
     <Compile Include="Entities\IssueChange.cs" />
+    <Compile Include="Entities\WorkLog.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

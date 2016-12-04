@@ -7,6 +7,7 @@ using ITS.Domain.Entities;
 using ITS.Domain.Abstract;
 using ITS.Models;
 using System.IO;
+using ITS.Utils;
 
 namespace ITS.Controllers
 {
@@ -89,35 +90,7 @@ namespace ITS.Controllers
             //AttachmentViewModel avm = new AttachmentViewModel();
             //avm.Attachment.IssueId = issueId;
             return View();
-        }
-
-        [HttpPost]
-        public ActionResult UploadFile(AttachmentViewModel attachment)
-        {
-            //newAttachment.BinaryData
-            Issue currentIssue = getCurrentIssue(attachment.Attachment.IssueId);
-
-            if (ModelState.IsValid)
-            {
-               
-
-                foreach (var file in attachment.Files)
-                {
-                    Attachment newAttachment = new Attachment();
-                    newAttachment.IssueId = attachment.Attachment.IssueId;
-                    newAttachment.Name = file.FileName;
-                    using (MemoryStream memoryStream = new MemoryStream())
-                    {
-                        file.InputStream.CopyTo(memoryStream);
-                        newAttachment.BinaryData = memoryStream.ToArray();
-                    }
-                    currentIssue.Attachments.Add(newAttachment);
-                }
-                               
-            }
-            m_Repository.SaveIssue(currentIssue);         
-            return RedirectToAction("Issue", "SingleIssue", new { attachment.Attachment.IssueId });
-        }
+        }        
 
         [HttpGet]
         public ActionResult DownloadFile(int ?currentIssueId, int ?fileId)
@@ -131,5 +104,22 @@ namespace ITS.Controllers
                 throw new NullReferenceException("Attempt to download invalid file");
             }
         }
+
+        [HttpGet]
+        public ViewResult LogWork()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult LogWork(WorkLog logItem)
+        {
+            //TODO: Implement
+            Issue currentIssue = getCurrentIssue(logItem.IssueId);
+            logItem.MillisecondsLogged = TimeUtils.ConvertHoursToMilliseconds(logItem.MillisecondsLogged);
+            currentIssue.WorkLogs.Add(logItem);
+            m_Repository.SaveIssue(currentIssue);
+            return RedirectToAction("Issue", "SingleIssue", new { issueId = logItem.IssueId });
+        }       
     }
 }

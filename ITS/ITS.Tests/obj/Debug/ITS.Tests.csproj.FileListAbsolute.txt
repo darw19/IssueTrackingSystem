@@ -56,5 +56,8 @@ E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Castle.Core.dll
 E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Moq.dll
 E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Castle.Core.xml
 E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Moq.xml
-E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\ITS.Tests.dll.CodeAnalysisLog.xml
-E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\ITS.Tests.dll.lastcodeanalysissucceeded
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Moq.Sequences.dll
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\nunit.framework.dll
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\nunit.mocks.dll
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\pnunit.framework.dll
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\nunit.framework.xml

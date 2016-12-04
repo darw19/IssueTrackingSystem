@@ -8,7 +8,7 @@ namespace ITS.Models
 {
     public class AttachmentViewModel
     {
-        public IEnumerable<HttpPostedFileBase> Files { get; set; }
-        public Attachment Attachment { get; set; }
+        virtual public IEnumerable<HttpPostedFileBase> Files { get; set; }
+        virtual public Attachment Attachment { get; set; }
     }
 }

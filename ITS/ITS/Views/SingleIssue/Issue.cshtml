@@ -1,6 +1,7 @@
 ﻿@model ITS.Domain.Entities.Issue
 @using Microsoft.AspNet.Identity
 @using ITS.Domain.Entities
+@using ITS.Utils;
 
 @{
     ViewBag.Title = "Issue";
@@ -43,11 +44,12 @@
     {
         <div class="single-comment">
             <div class="comment-title">
-                Created by @x.CommentChanges.First(y => y.TypeOfChange == "CREATION").UserEmail
+                <i>Created by @x.CommentChanges.First(y => y.TypeOfChange == "CREATION").UserEmail</i>
             </div>
             <div>
-                Modified last time by @x.CommentChanges.OrderByDescending(y => y.TimeOfChange).First().UserEmail
+                <i>Modified last time by @x.CommentChanges.OrderByDescending(y => y.TimeOfChange).First().UserEmail</i>
             </div>
+            <br />
             <div class="comment">@x.Text</div>
             <div class="comment-edit" style="display:none" id="comment-edit_@(x.Id)">
                 @Html.Partial("ModifyComment", new ITS.Models.CommentViewModel()
@@ -67,16 +69,29 @@
     <div> Attachments: </div>
     @foreach (var attachment in Model.Attachments)
     {
-        <div> @Html.ActionLink(@attachment.Name, "DownloadFile", "SingleIssue", new { currentIssueId = @Model.Id, fileId = @attachment.Id }, null) </div>
+        <div>
+            @Html.ActionLink(@attachment.Name, "DownloadFile", "SingleIssue", new { currentIssueId = @Model.Id, fileId = @attachment.Id }, null)
+            <a href="@Url.Action("DeleteAttachment", "Attachment", new { attachmentId = attachment.Id })">
+                <img src="@Url.Content("~/Content/Images/delete-icon.png")" style="width:10px;height:10px;" />
+            </a>
+        </div>
     }
 
     @Html.Partial("UploadFile", new ITS.Models.AttachmentViewModel() { Attachment = new Attachment { IssueId = Model.Id } })
-
 </div>
 
 @Html.Partial("AddComment", new ITS.Models.CommentViewModel() {Comment = 
 new ITS.Domain.Entities.Comment() { IssueId = @Model.Id },
 UserEmail = User.Identity.GetUserName()})
+
+<div class="work-log-container">
+    <div id="work-log-summarry">
+        A total of @Model.WorkLogs.Where(x => x.IssueId == Model.Id && x.UserId == User.Identity.GetUserId()).Sum(x => TimeUtils.ConvertMillisecondsToHours(x.MillisecondsLogged))
+        hours has been logged for this issue
+    </div>
+    <input type="button" value="Log Work" id="work-log-btn" />
+    @Html.Partial("LogWork", new WorkLog() { IssueId = @Model.Id, UserId = User.Identity.GetUserId() })
+</div>
 
 @section Scripts
 {
@@ -98,7 +113,6 @@ UserEmail = User.Identity.GetUserName()})
     }
 
     $(function () {
-        console.log("HELLO");
         var dial;
         dial = $(".order_bg").dialog({
             height: 400,
@@ -133,6 +147,23 @@ UserEmail = User.Identity.GetUserName()})
             }
         });
 
+        var logWork;
+        logWork = $("#log-work").dialog({
+            height: 400,
+            width: 350,
+            modal: true,
+            autoOpen: false,
+            buttons: {
+                "Log Work": function () {
+                    console.log("Submitting Logged work");
+                    document.getElementById("log-work-form").submit();
+                },
+                "Cancel": function () {
+                    logWork.dialog("close");
+                }
+            }
+        });
+
         $(".modalorder").button().on("click", function () {
             dial.dialog("open");
             console.log("EDIT ISSUE CLICKED");
@@ -141,6 +172,11 @@ UserEmail = User.Identity.GetUserName()})
         $("#addComment").button().on("click", function () {
             addComm.dialog("open");
             console.log("ADD COMMENT CLICKED");
+        });
+
+        $("#work-log-btn").button().on("click", function () {
+            logWork.dialog("open");
+            console.log("LOG WORK DIALOG");
         });
     });
 </script>
