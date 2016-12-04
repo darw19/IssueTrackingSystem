@@ -21,6 +21,7 @@ namespace ITS.Domain.Concrete
                     dbEntry.Title = issue.Title;
                     dbEntry.Description = issue.Description;
                     dbEntry.AssignedTo = issue.AssignedTo;
+                    dbEntry.Comments = issue.Comments;
                 }
                 else
                 {

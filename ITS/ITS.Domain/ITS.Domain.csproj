@@ -66,6 +66,9 @@
     <Compile Include="Abstract\IUserRepository.cs" />
     <Compile Include="Concrete\ApplicationDbContext.cs" />
     <Compile Include="Concrete\EFAttachmentChangeRepository.cs" />
+    <Compile Include="Concrete\EFBaseChangeRepository.cs" />
+    <Compile Include="Concrete\EFCommentChangeRepository.cs" />
+    <Compile Include="Concrete\EFCommentRepository.cs" />
     <Compile Include="Concrete\EFIssueRepository.cs" />
     <Compile Include="Concrete\EFUserRepository.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
