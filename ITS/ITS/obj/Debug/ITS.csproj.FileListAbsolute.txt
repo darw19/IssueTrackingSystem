@@ -65,3 +65,5 @@ E:\Projects\ITS\ITS\ITS\bin\Ninject.Web.Common.pdb
 E:\Projects\ITS\ITS\ITS\bin\Ninject.Web.Common.xml
 E:\Projects\ITS\ITS\ITS\bin\Ninject.Web.Mvc.pdb
 E:\Projects\ITS\ITS\ITS\bin\Ninject.Web.Mvc.xml
+E:\Projects\ITS\ITS\ITS\bin\ITS.dll.CodeAnalysisLog.xml
+E:\Projects\ITS\ITS\ITS\bin\ITS.dll.lastcodeanalysissucceeded

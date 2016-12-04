@@ -56,3 +56,5 @@ E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Castle.Core.dll
 E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Moq.dll
 E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Castle.Core.xml
 E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\Moq.xml
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\ITS.Tests.dll.CodeAnalysisLog.xml
+E:\Projects\ITS\ITS\ITS.Tests\bin\Debug\ITS.Tests.dll.lastcodeanalysissucceeded

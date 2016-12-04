@@ -1,5 +1,6 @@
 ﻿@model ITS.Domain.Entities.Issue
 @using Microsoft.AspNet.Identity
+@using ITS.Domain.Entities
 
 @{
     ViewBag.Title = "Issue";
@@ -60,6 +61,17 @@
         </div>
     }
     <a id="addComment" href="#"> Add Comment </a>
+</div>
+
+<div class="attachments" >
+    <div> Attachments: </div>
+    @foreach (var attachment in Model.Attachments)
+    {
+        <div> @Html.ActionLink(@attachment.Name, "DownloadFile", "SingleIssue", new { currentIssueId = @Model.Id, fileId = @attachment.Id }, null) </div>
+    }
+
+    @Html.Partial("UploadFile", new ITS.Models.AttachmentViewModel() { Attachment = new Attachment { IssueId = Model.Id } })
+
 </div>
 
 @Html.Partial("AddComment", new ITS.Models.CommentViewModel() {Comment = 
