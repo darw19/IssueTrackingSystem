@@ -28,6 +28,10 @@
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                         @if (Request.IsAuthenticated)
                     {
+                        <li>@Html.ActionLink("Statistics", "Statistics", "Home")</li>
+                    }
+                        @if (Request.IsAuthenticated)
+                    {
                         <li>@Html.ActionLink("Issues", "Index", "Issues")</li>
                     }
 

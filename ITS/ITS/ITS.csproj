@@ -261,6 +261,7 @@
     <Content Include="Views\Shared\_IssuePartial.cshtml" />
     <Content Include="Views\SingleIssue\UploadFile.cshtml" />
     <Content Include="Views\SingleIssue\LogWork.cshtml" />
+    <Content Include="Views\Home\Statistics.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

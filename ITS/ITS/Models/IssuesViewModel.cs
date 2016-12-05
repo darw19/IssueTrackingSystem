@@ -13,6 +13,11 @@ namespace ITS.Models
         var users = new ITS.Domain.Concrete.EFUserRepository();
         return users.Users;
         }
+        public IEnumerable<Issue> Issues()
+        {
+            var issues = new ITS.Domain.Concrete.EFIssueRepository();
+            return issues.Issues;
+        }
         public IEnumerable<string> Statuses()
         {
             IEnumerable<string> statuses = new List<string>() { "Not started", "In progress", "Done" };
