@@ -21,6 +21,7 @@ namespace ITS.Domain.Concrete
                     dbEntry.Description = issue.Description;
                     dbEntry.AssignedTo = context.Users.Find(issue.AssignedTo.Id);
                     dbEntry.Comments = issue.Comments;
+                    dbEntry.Status = issue.Status;
                 }
                 else
                 {

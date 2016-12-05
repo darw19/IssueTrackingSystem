@@ -1,0 +1,18 @@
+﻿@model ITS.Domain.Entities.WorkLog
+
+<div id="log-work" title="Log Work" class="order_bg_3" style="display:none">
+    @using (Html.BeginForm("LogWork", "SingleIssue", FormMethod.Post, new { @id = "log-work-form" }))
+    {
+        @*@Html.HiddenFor(x => x.IssueId, new { value = @Model.IssueId })
+        @Html.HiddenFor(x => x.UserId, new { value = @Model.UserId })*@
+        
+        <input type="hidden" name="logItem.IssueId" value="@Model.IssueId" />
+        <input type="hidden" name="logItem.UserId" value="@Model.UserId" />
+        
+        @Html.LabelFor(x => x.MillisecondsLogged, "Hours spent")
+        <input type="number" name="logItem.MillisecondsLogged" min="1" max="12" step="1" />
+
+        @Html.LabelFor(x => x.TimeOfLogging, "Date and time")
+        <input type="datetime-local" name="logItem.TimeOfLogging" />
+    }
+</div>

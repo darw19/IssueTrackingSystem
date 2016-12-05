@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using ITS.Domain.Entities;
 using ITS.Domain.Abstract;
 using ITS.Models;
+using System.IO;
+using ITS.Utils;
 
 namespace ITS.Controllers
 {
@@ -81,5 +83,43 @@ namespace ITS.Controllers
             m_Repository.SaveIssue(currentIssue);
             return RedirectToAction("Issue", "SingleIssue", new { issueId = commentVM.Comment.IssueId });
         }
+
+        [HttpGet]
+        public ViewResult UploadFile()
+        {
+            //AttachmentViewModel avm = new AttachmentViewModel();
+            //avm.Attachment.IssueId = issueId;
+            return View();
+        }        
+
+        [HttpGet]
+        public ActionResult DownloadFile(int ?currentIssueId, int ?fileId)
+        {
+            if (fileId != null && currentIssueId != null)
+            {
+                Attachment fileToDownload = getCurrentIssue(currentIssueId).Attachments.First(x => x.Id == fileId);
+                return File(fileToDownload.BinaryData, System.Net.Mime.MediaTypeNames.Application.Octet, fileToDownload.Name);
+            } else
+            {
+                throw new NullReferenceException("Attempt to download invalid file");
+            }
+        }
+
+        [HttpGet]
+        public ViewResult LogWork()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult LogWork(WorkLog logItem)
+        {
+            //TODO: Implement
+            Issue currentIssue = getCurrentIssue(logItem.IssueId);
+            logItem.MillisecondsLogged = TimeUtils.ConvertHoursToMilliseconds(logItem.MillisecondsLogged);
+            currentIssue.WorkLogs.Add(logItem);
+            m_Repository.SaveIssue(currentIssue);
+            return RedirectToAction("Issue", "SingleIssue", new { issueId = logItem.IssueId });
+        }       
     }
 }

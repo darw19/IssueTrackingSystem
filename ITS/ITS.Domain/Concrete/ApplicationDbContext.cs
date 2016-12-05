@@ -16,6 +16,7 @@ namespace ITS.Domain.Concrete
         public DbSet<Issue> Issues { get; set; }
         public DbSet<IssueChange> IssueChanges { get; set; }
         public DbSet<CommentChange> CommentChanges { get; set; }
+        public DbSet<WorkLog> WorkLogs { get; set; }
         public ApplicationDbContext()
             : base("Data Source=(LocalDb)\\v11.0;Initial Catalog=aspnet-ITS;Integrated Security=True", throwIfV1Schema: false)
         {

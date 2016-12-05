@@ -36,6 +36,7 @@ namespace ITS.Infrastructure
             kernel.Bind<IAttachmentChangeRepository>().To<EFAttachmentChangeRepository>();
 
             kernel.Bind<ICommentRepository>().To<EFCommentRepository>();
+            kernel.Bind<IAttachmentRepository>().To<EFAttachmentRepository>();
 
         }
     }
