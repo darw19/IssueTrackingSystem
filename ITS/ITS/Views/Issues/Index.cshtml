@@ -1,4 +1,6 @@
 ﻿@model ITS.Domain.Concrete.EFIssueRepository
+@using Microsoft.AspNet.Identity
+@using ITS.Models
 
 <h2>Index</h2>
 
@@ -7,6 +9,7 @@
     <div>
         @{
     var issue = new ITS.Domain.Entities.Issue();
+    issue.UserEmail = User.Identity.GetUserName();
     Html.RenderPartial("~/Views/Shared/_IssuePartial.cshtml", issue);
     }
     <div class="sidecontent">
@@ -16,27 +19,47 @@
     </div>
     </div>
 
-
-<table border="1">
-    <col width="200px" />
-    <col width="300px" />
-    <col width="200px" />
- <tr>
-    <th>Title</th>
-    <th>Created On</th>
-    <th>Created By</th>
-</tr>
-@foreach (var x in Model.Issues)
-{
+    <table>
+        @{
+    var viewModel = new ITS.Models.IssuesViewModel();
+    var statuses = viewModel.Statuses();
+    foreach (var s in statuses)
+    {
+        <tr>
+            <th><h3>@s</h3></th>
+        </tr>
     <tr>
-        <td>@Html.ActionLink(x.Title, "Issue", "SingleIssue", new { issueId = x.Id }, null)</td>
-        <td>@x.CreatedOn</td>
-        <td>@x.UserEmail</td>
-    </tr>
-}
+        <td>
+            <table border="1">
+                <col width="200px" />
+                <col width="150px" />
+                <col width="200px" />
+                <tr>
+                    <th>Title</th>
+                    <th>Created On</th>
+                    <th>Created By</th>
+                </tr>
+                @foreach (var x in Model.Issues)
+                {
+                    if(s == x.Status)
+                    { 
+                    <tr>
+                        <td>@Html.ActionLink(x.Title, "Issue", "SingleIssue", new { issueId = x.Id }, null)</td>
+                        <td>@x.CreatedOn</td>
+                        <td>@x.UserEmail</td>
+                    </tr>
+                    }
+                }
 
+            </table>
+        </td>
+    </tr>
+
+    }
+}
 </table>
-} else
+}
+else
 {
 <h1>You don't have permissions to view this page</h1>
 }

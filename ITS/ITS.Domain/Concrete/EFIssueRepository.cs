@@ -14,18 +14,18 @@ namespace ITS.Domain.Concrete
 
         public void SaveIssue(Issue issue)
         {
-            System.Diagnostics.Debug.WriteLine(issue.Id);
                 Issue dbEntry = context.Issues.Find(issue.Id);
                 if (dbEntry != null)
                 {
                     dbEntry.Title = issue.Title;
                     dbEntry.Description = issue.Description;
-                    dbEntry.AssignedTo = issue.AssignedTo;
+                    dbEntry.AssignedTo = context.Users.Find(issue.AssignedTo.Id);
                     dbEntry.Comments = issue.Comments;
                 }
                 else
                 {
                     issue.CreatedOn = System.DateTime.Now;
+                    issue.AssignedTo = context.Users.Find(issue.AssignedTo.Id);
                     context.Issues.Add(issue);
                 }
                 context.SaveChanges();

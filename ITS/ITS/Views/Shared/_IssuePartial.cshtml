@@ -6,7 +6,12 @@
             @Html.HiddenFor(x => x.Id)
             @Html.TextBoxFor(x => x.Title)
             @Html.TextAreaFor(x => x.Description)
-            @Html.HiddenFor(x => x.AssignedTo)
+            var model = new ITS.Models.IssuesViewModel();
+            var list = model.Users();
+            var statuses = model.Statuses();
+            @Html.DropDownListFor(x => x.AssignedTo.Id, new SelectList(list, "Id", "Username"))
+            @Html.DropDownListFor(x => x.Status, new SelectList(statuses))
+            @Html.HiddenFor(x => x.UserEmail)
         }
     </div>
 

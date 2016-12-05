@@ -254,6 +254,7 @@
     <Content Include="Views\SingleIssue\Issue.cshtml" />
     <Content Include="Views\SingleIssue\AddComment.cshtml" />
     <Content Include="Views\SingleIssue\ModifyComment.cshtml" />
+    <Content Include="Views\Shared\_IssuePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

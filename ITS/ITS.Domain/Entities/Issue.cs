@@ -21,6 +21,7 @@ namespace ITS.Domain.Entities
         public string Description { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public string UserEmail { get; set; }
+        public string Status { get; set; }
     
         public virtual ApplicationUser AssignedTo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
