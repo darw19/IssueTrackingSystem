@@ -120,6 +120,28 @@ namespace ITS.Controllers
             currentIssue.WorkLogs.Add(logItem);
             m_Repository.SaveIssue(currentIssue);
             return RedirectToAction("Issue", "SingleIssue", new { issueId = logItem.IssueId });
-        }       
+        }
+
+        [HttpGet]
+        public PartialViewResult AddIssueConnection(int issueId)
+        {
+            var viewmodel = new IssueConnectionViewModel(m_Repository)
+            {
+                FirstIssue = getCurrentIssue(issueId)
+            };
+            return PartialView(viewmodel);
+        }
+       
+        [HttpPost]
+        public ActionResult AddIssueConnection(int firstIssueId, int secondIssueId)
+        {
+            Issue currentIssue = getCurrentIssue(firstIssueId);
+            Issue targetIssue = getCurrentIssue(secondIssueId);
+            currentIssue.IssueConnections.Add(targetIssue);
+            targetIssue.IssueConnections.Add(currentIssue);
+            m_Repository.SaveIssue(currentIssue);
+            m_Repository.SaveIssue(targetIssue);
+            return RedirectToAction("Issue", "SingleIssue", new { issueId = firstIssueId });
+        }
     }
 }
