@@ -17,6 +17,8 @@ namespace ITS.Domain.Entities
 
         [Key]        
         public int Id { get; set; }
+
+        [Required(ErrorMessage="Title of the issue cannot be empty")]
         public string Title { get; set; }
         public string Description { get; set; }
         public System.DateTime CreatedOn { get; set; }

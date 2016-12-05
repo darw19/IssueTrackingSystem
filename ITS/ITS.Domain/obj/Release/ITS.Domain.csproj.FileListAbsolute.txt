@@ -1,0 +1,13 @@
+E:\Projects\ITS\ITS\ITS.Domain\bin\Release\ITS.Domain.dll.config
+E:\Projects\ITS\ITS\ITS.Domain\bin\Release\ITS.Domain.dll
+E:\Projects\ITS\ITS\ITS.Domain\bin\Release\ITS.Domain.pdb
+E:\Projects\ITS\ITS\ITS.Domain\bin\Release\EntityFramework.dll
+E:\Projects\ITS\ITS\ITS.Domain\bin\Release\EntityFramework.SqlServer.dll
+E:\Projects\ITS\ITS\ITS.Domain\bin\Release\Microsoft.AspNet.Identity.Core.dll
+E:\Projects\ITS\ITS\ITS.Domain\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\Projects\ITS\ITS\ITS.Domain\bin\Release\EntityFramework.xml
+E:\Projects\ITS\ITS\ITS.Domain\bin\Release\EntityFramework.SqlServer.xml
+E:\Projects\ITS\ITS\ITS.Domain\bin\Release\Microsoft.AspNet.Identity.Core.xml
+E:\Projects\ITS\ITS\ITS.Domain\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\Projects\ITS\ITS\ITS.Domain\obj\Release\ITS.Domain.dll
+E:\Projects\ITS\ITS\ITS.Domain\obj\Release\ITS.Domain.pdb

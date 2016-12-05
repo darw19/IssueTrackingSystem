@@ -177,6 +177,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AttachmentController.cs" />
+    <Compile Include="Controllers\ErrorPageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IssuesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -264,6 +265,7 @@
     <Content Include="Views\SingleIssue\LogWork.cshtml" />
     <Content Include="Views\Home\Statistics.cshtml" />
     <Content Include="Views\SingleIssue\AddIssueConnection.cshtml" />
+    <Content Include="Views\ErrorPage\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

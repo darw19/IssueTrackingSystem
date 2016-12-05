@@ -23,17 +23,14 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
                         <li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                         @if (Request.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("Statistics", "Statistics", "Home")</li>
-                    }
-                        @if (Request.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("Issues", "Index", "Issues")</li>
-                    }
+                        {
+                            <li>@Html.ActionLink("Statistics", "Statistics", "Home")</li>
+                            <li>@Html.ActionLink("Issues", "Index", "Issues")</li>
+                        }
 
                     </ul>
                     @Html.Partial("_LoginPartial")
@@ -51,6 +48,7 @@
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
         <script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
         @RenderSection("scripts", required: false)
     </body>

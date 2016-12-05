@@ -3,17 +3,34 @@
     <div id="edit-dialog" title="Edit issue" class="order_bg" style="display:none">
         @using (Html.BeginForm("Issue", "SingleIssue", FormMethod.Post, new { @id = "sForm" }))
         {
-            @Html.HiddenFor(x => x.Id)
-            @Html.TextBoxFor(x => x.Title)
-            @Html.TextAreaFor(x => x.Description)
+            <div>
+                @Html.HiddenFor(x => x.Id)
+                <label for="edit-issue-title">Title (required, cannot be empty)</label>
+                <input type="text" name="Title" id="edit-issue-title" value="@Model.Title" minlength=1 required />
+            </div>
+            <div>
+                @Html.LabelFor(x => x.Description)
+                @Html.TextAreaFor(x => x.Description, 2, 50, null)
+            </div>
+            <br />
             var model = new ITS.Models.IssuesViewModel();
             var list = model.Users();
             var statuses = model.Statuses();
-            @Html.DropDownListFor(x => x.AssignedTo.Id, new SelectList(list, "Id", "Username"))
-            @Html.DropDownListFor(x => x.Status, new SelectList(statuses))
-            @Html.HiddenFor(x => x.UserEmail)
+            <div>
+                <div>@Html.LabelFor(x => x.AssignedTo.Id)</div>
+                @Html.DropDownListFor(x => x.AssignedTo.Id, new SelectList(list, "Id", "Username"))
+            </div>
+            <br />
+            <div>
+                <div>@Html.LabelFor(x => x.Status)</div>
+                @Html.DropDownListFor(x => x.Status, new SelectList(statuses))
+                @Html.HiddenFor(x => x.UserEmail)
+            </div>
+                        
+            <input type="submit" id="issue-submit" value="Submit" style="display:none" />
         }
     </div>
+
 
 
  

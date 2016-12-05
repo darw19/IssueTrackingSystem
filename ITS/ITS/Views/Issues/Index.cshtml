@@ -2,6 +2,12 @@
 @using Microsoft.AspNet.Identity
 @using ITS.Models
 
+<style>
+    .error {
+    color:#FF0000;
+}
+</style>
+
 <h2>Issues page</h2>
 
 @if (Request.IsAuthenticated)
@@ -68,7 +74,9 @@ else
 {
     <script type="text/javascript">
         $(function () {
-            console.log("HELLO");
+
+            $("#sForm").validate();
+
             var dial;
             dial = $(".order_bg").dialog({
                 height: 400,
@@ -78,7 +86,9 @@ else
                 buttons: {
                     "Create": function () {
                         console.log("Submitting");
-                        document.getElementById("sForm").submit();
+                        //document.getElementById("sForm").submit();
+                        document.getElementById('issue-submit').click();
+
                     },
                     "Cancel": function () {
                         console.log("close");
@@ -91,6 +101,7 @@ else
                 dial.dialog("open");
                 console.log("Sdfgfg");
             });
+
         });
     </script>
 }
