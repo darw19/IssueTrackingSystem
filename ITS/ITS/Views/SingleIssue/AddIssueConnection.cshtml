@@ -1,0 +1,20 @@
+﻿@model ITS.Models.IssueConnectionViewModel
+@using System.Linq
+
+@using (Html.BeginForm("AddIssueConnection", "SingleIssue", FormMethod.Post))
+{
+    <input type="hidden" name="firstIssueId" value="@Model.FirstIssue.Id">
+    <select name="secondIssueId">
+        @foreach (var x in @Model.AllIssues.ToList())
+        {
+            if (x.Id != @Model.FirstIssue.Id && !Model.FirstIssue.IssueConnections.Contains(x))
+            {
+                <option value="@x.Id">@x.Title</option>
+            }
+        }
+    </select>
+
+    <input type="submit" value="Establish connection" />
+}
+
+

@@ -19,7 +19,14 @@ namespace ITS.Domain.Concrete
                 {
                     dbEntry.Title = issue.Title;
                     dbEntry.Description = issue.Description;
-                    dbEntry.AssignedTo = context.Users.Find(issue.AssignedTo.Id);
+                    if (issue.AssignedTo != null)
+                    {
+                        dbEntry.AssignedTo = context.Users.Find(issue.AssignedTo.Id);
+                    }
+                    else
+                    {
+                        dbEntry.AssignedTo = null;
+                    }                    
                     dbEntry.Comments = issue.Comments;
                     dbEntry.Status = issue.Status;
                 }

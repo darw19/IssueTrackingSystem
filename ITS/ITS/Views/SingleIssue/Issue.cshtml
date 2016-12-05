@@ -2,6 +2,7 @@
 @using Microsoft.AspNet.Identity
 @using ITS.Domain.Entities
 @using ITS.Utils;
+@using ITS.Models;
 
 @{
     ViewBag.Title = "Issue";
@@ -92,6 +93,16 @@ UserEmail = User.Identity.GetUserName()})
     <input type="button" value="Log Work" id="work-log-btn" />
     @Html.Partial("LogWork", new WorkLog() { IssueId = @Model.Id, UserId = User.Identity.GetUserId() })
 </div>
+
+<br />
+<div>Issue connections:</div>
+<div class="issue-connections">
+    @foreach (var x in @Model.IssueConnections)
+    {
+        <div> @Html.ActionLink(@x.Title, "Issue", "SingleIssue", new { issueId = @x.Id }, null) </div>
+    }
+</div> 
+@{ Html.RenderAction("AddIssueConnection", new { issueId = Model.Id }); }
 
 @section Scripts
 {

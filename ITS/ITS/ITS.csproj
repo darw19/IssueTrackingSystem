@@ -188,6 +188,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AttachmentViewModel.cs" />
     <Compile Include="Models\CommentViewModel.cs" />
+    <Compile Include="Models\IssueConnectionViewModel.cs" />
     <Compile Include="Models\IssuesViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -261,6 +262,7 @@
     <Content Include="Views\Shared\_IssuePartial.cshtml" />
     <Content Include="Views\SingleIssue\UploadFile.cshtml" />
     <Content Include="Views\SingleIssue\LogWork.cshtml" />
+    <Content Include="Views\SingleIssue\AddIssueConnection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
