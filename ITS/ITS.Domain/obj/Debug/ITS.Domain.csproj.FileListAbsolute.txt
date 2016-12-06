@@ -25,3 +25,4 @@ D:\its\IssueTrackingSystem\ITS\ITS.Domain\bin\Debug\Microsoft.AspNet.Identity.En
 D:\its\IssueTrackingSystem\ITS\ITS.Domain\obj\Debug\ITS.Domain.csprojResolveAssemblyReference.cache
 D:\its\IssueTrackingSystem\ITS\ITS.Domain\obj\Debug\ITS.Domain.dll
 D:\its\IssueTrackingSystem\ITS\ITS.Domain\obj\Debug\ITS.Domain.pdb
+E:\Projects\ITS\ITS\ITS.Domain\obj\Debug\ITS.Domain.csprojResolveAssemblyReference.cache

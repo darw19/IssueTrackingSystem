@@ -127,6 +127,7 @@
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Controllers\AttachmentControllerTest.cs" />
+    <Compile Include="Controllers\IssuesControllerTest.cs" />
     <Compile Include="Controllers\SingleIssueControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />

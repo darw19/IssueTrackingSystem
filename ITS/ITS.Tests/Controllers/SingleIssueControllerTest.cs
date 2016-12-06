@@ -112,6 +112,22 @@ namespace ITS.Tests.Controllers
             Assert.AreEqual(2, result.IssueId);
         }
 
-        //TODO: Test for addCommentPost
+        [TestMethod]
+        public void IssueAddNew()
+        {
+            //Arrange
+            Mock<IIssueRepository> mock = new Mock<IIssueRepository>();
+
+            SingleIssueController controller = new SingleIssueController(mock.Object);
+            Issue newIssue = new Issue() { Description = "TEST_DESC", Title = "TEST_TITLE", UserEmail = "tenx@gmail.com" };
+
+            //Act
+            controller.Issue(newIssue);
+
+            //Assert
+            mock.Verify(x => x.SaveIssue(It.Is<Issue>(i => i.Description == newIssue.Description && i.Title == newIssue.Title
+                                        && i.UserEmail == newIssue.UserEmail)));
+
+        }
     }
 }
