@@ -113,6 +113,40 @@ namespace ITS.Tests.Controllers
         }
 
         [TestMethod]
+        public void AddCommentPostCreatingNew()
+        {
+            //Arrange
+            Mock<IIssueRepository> mock = new Mock<IIssueRepository>();
+            SingleIssueController controller = new SingleIssueController(mock.Object);
+            var testIssues = new Issue[] {
+                new Issue { Id = 1, Description = "First Issue", UserEmail = "ten@gmail.com", Title = "First Issue" },
+                new Issue { Id = 2, Description = "Second Issue", UserEmail = "tenx@gmail.com", Title = "Second Issue" },
+                new Issue { Id = 3, Description = "Third Issue", UserEmail = "three@gmail.com", Title = "Third Issue" }
+            };
+            mock.Setup(m => m.Issues).Returns(testIssues);
+            CommentViewModel testVm = new CommentViewModel()
+            {
+                UserEmail = "ten@gmail.com",
+                Comment = new Comment()
+                {
+                    Id = 0,
+                    IssueId = 2,
+                    Text = "This is a test comment"
+                }
+            };
+
+            //Act
+            controller.AddComment(testVm);
+
+            //Assert
+            mock.Verify(x => x.SaveIssue(It.Is<Issue>(i => i.Title == testIssues[1].Title && i.Description == testIssues[1].Description
+                && i.Id == 2 && i.Comments.First(y => y.Text == "This is a test comment").IssueId == 2
+                && i.Comments.First(y => y.Text == "This is a test comment").CommentChanges.ElementAt(0).TypeOfChange == "CREATION"
+                && i.Comments.First(y => y.Text == "This is a test comment").CommentChanges.ElementAt(0).Comment 
+                == i.Comments.First(y => y.Text == "This is a test comment"))));
+        }
+
+        [TestMethod]
         public void IssueAddNew()
         {
             //Arrange
@@ -127,6 +161,39 @@ namespace ITS.Tests.Controllers
             //Assert
             mock.Verify(x => x.SaveIssue(It.Is<Issue>(i => i.Description == newIssue.Description && i.Title == newIssue.Title
                                         && i.UserEmail == newIssue.UserEmail)));
+
+        }
+
+        [TestMethod]
+        public void TestLogWork()
+        {
+            //Arrange
+            WorkLog wlItem = new WorkLog()
+            {
+                IssueId = 2,
+                MillisecondsLogged = 1,
+                TimeOfLogging = new System.DateTime(2016, 11, 11, 11, 11, 0),
+                UserId = "test_user_id"
+            };
+
+            Mock<IIssueRepository> mock = new Mock<IIssueRepository>();
+            SingleIssueController controller = new SingleIssueController(mock.Object);
+            var testIssues = new Issue[] {
+                new Issue { Id = 1, Description = "First Issue", UserEmail = "ten@gmail.com", Title = "First Issue", WorkLogs = new List<WorkLog>() },
+                new Issue { Id = 2, Description = "Second Issue", UserEmail = "tenx@gmail.com", Title = "Second Issue", WorkLogs = new List<WorkLog>() },
+                new Issue { Id = 3, Description = "Third Issue", UserEmail = "three@gmail.com", Title = "Third Issue", WorkLogs = new List<WorkLog>() }
+            };
+            mock.Setup(m => m.Issues).Returns(testIssues);
+
+            //Act
+            controller.LogWork(wlItem);
+
+            //Assert
+            mock.Verify(x => x.SaveIssue(It.Is<Issue>( i => i.Title == testIssues[1].Title && i.Description == testIssues[1].Description
+                            && i.UserEmail == testIssues[1].UserEmail && i.Id == 2
+                            && i.WorkLogs.ElementAt(0).IssueId == 2 && i.WorkLogs.ElementAt(0).MillisecondsLogged == 3600000
+                            && i.WorkLogs.ElementAt(0).TimeOfLogging == wlItem.TimeOfLogging
+                            && i.WorkLogs.ElementAt(0).UserId == wlItem.UserId)));
 
         }
     }
