@@ -44,6 +44,8 @@
 
 </div>
 
+<br />
+<h3>Comments</h3>
 <div class="Comments">
     @foreach (var x in Model.Comments.Reverse())
     {
@@ -70,6 +72,8 @@
     <a id="addComment" href="#"> Add Comment </a>
 </div>
 
+<br />
+<h3>Attachments</h3>
 <div class="attachments" >
     <div> Attachments: </div>
     @foreach (var attachment in Model.Attachments)
@@ -89,6 +93,8 @@
 new ITS.Domain.Entities.Comment() { IssueId = @Model.Id },
 UserEmail = User.Identity.GetUserName()})
 
+<br />
+<h3>Work log</h3>
 <div class="work-log-container">
     <div id="work-log-summarry">
         A total of @Model.WorkLogs.Where(x => x.IssueId == Model.Id && x.UserId == User.Identity.GetUserId()).Sum(x => TimeUtils.ConvertMillisecondsToHours(x.MillisecondsLogged))
@@ -99,7 +105,7 @@ UserEmail = User.Identity.GetUserName()})
 </div>
 
 <br />
-<div>Issue connections:</div>
+<h3>Issue connections:</h3>
 <div class="issue-connections">
     @foreach (var x in @Model.IssueConnections)
     {

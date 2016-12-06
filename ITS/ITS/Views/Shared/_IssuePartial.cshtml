@@ -17,7 +17,7 @@
             var list = model.Users();
             var statuses = model.Statuses();
             <div>
-                <div>@Html.LabelFor(x => x.AssignedTo.Id)</div>
+                <div><b>Assignee</b></div>
                 @Html.DropDownListFor(x => x.AssignedTo.Id, new SelectList(list, "Id", "Username"))
             </div>
             <br />
