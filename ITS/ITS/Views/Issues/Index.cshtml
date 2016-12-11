@@ -1,4 +1,4 @@
-﻿@model ITS.Domain.Concrete.EFIssueRepository
+﻿@model IEnumerable<ITS.Domain.Entities.Issue>
 @using Microsoft.AspNet.Identity
 @using ITS.Models
 
@@ -14,9 +14,7 @@
 {
     <div>
         @{
-    var issue = new ITS.Domain.Entities.Issue();
-    issue.UserEmail = User.Identity.GetUserName();
-    Html.RenderPartial("~/Views/Shared/_IssuePartial.cshtml", issue);
+    Html.RenderAction("IssuePartial", "SingleIssue", new { userEmail = User.Identity.GetUserName() });
     }
     <div class="sidecontent">
         <a class="modalorder" href="#">
@@ -27,9 +25,8 @@
 
     <table>
         @{
-    var viewModel = new ITS.Models.IssuesViewModel();
-    var statuses = viewModel.Statuses();
-    foreach (var s in statuses)
+
+    foreach (var s in ITS.Models.IssuesViewModel.Statuses())
     {
         <tr>
             <th><h3>@s</h3></th>
@@ -45,7 +42,7 @@
                     <th>Created On</th>
                     <th>Created By</th>
                 </tr>
-                @foreach (var x in Model.Issues)
+                @foreach (var x in Model)
                 {
                     if(s == x.Status)
                     { 

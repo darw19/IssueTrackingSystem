@@ -23,12 +23,6 @@ namespace ITS.Controllers
             return m_Repository.Attachments.First(x => x.Id == attachmentId);
         }
 
-
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         [HttpPost]
         public ActionResult UploadFile(AttachmentViewModel attachment)
         {

@@ -13,9 +13,8 @@
                 @Html.TextAreaFor(x => x.Description, 2, 50, null)
             </div>
             <br />
-            var model = new ITS.Models.IssuesViewModel();
-            var list = model.Users();
-            var statuses = model.Statuses();
+            var list = ViewBag.UsersList;
+            var statuses = ITS.Models.IssuesViewModel.Statuses();
             <div>
                 <div><b>Assignee</b></div>
                 @Html.DropDownListFor(x => x.AssignedTo.Id, new SelectList(list, "Id", "Username"))

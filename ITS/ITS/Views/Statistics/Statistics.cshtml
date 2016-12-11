@@ -1,0 +1,20 @@
+﻿@model ITS.Models.IssuesViewModel
+@using Microsoft.AspNet.Identity
+
+
+@{
+    ViewBag.Title = "Statistics";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Statistics</h2>
+@{
+    var count = Model.Users.Count() - 1;
+    <li><h3>Total users: @count</h3></li>
+}
+<li><h3>Total issues: @Model.Issues.Count()</h3></li>
+<li><h3>Not started issues: @Model.Issues.Where(issue => issue.Status == "Not started").Count()</h3></li>
+<li><h3>In progress issues: @Model.Issues.Where(issue => issue.Status == "In progress").Count()</h3></li>
+<li><h3>Done issues: @Model.Issues.Where(issue => issue.Status == "Done").Count()</h3></li>
+
+

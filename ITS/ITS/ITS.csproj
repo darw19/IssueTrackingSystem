@@ -182,6 +182,7 @@
     <Compile Include="Controllers\IssuesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SingleIssueController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -263,9 +264,9 @@
     <Content Include="Views\Shared\_IssuePartial.cshtml" />
     <Content Include="Views\SingleIssue\UploadFile.cshtml" />
     <Content Include="Views\SingleIssue\LogWork.cshtml" />
-    <Content Include="Views\Home\Statistics.cshtml" />
     <Content Include="Views\SingleIssue\AddIssueConnection.cshtml" />
     <Content Include="Views\ErrorPage\Error.cshtml" />
+    <Content Include="Views\Statistics\Statistics.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

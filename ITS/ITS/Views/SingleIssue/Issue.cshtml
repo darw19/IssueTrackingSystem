@@ -35,7 +35,8 @@
     <h3>@Model.Description</h3>
 
 @{
-    Html.RenderPartial("~/Views/Shared/_IssuePartial.cshtml", Model);
+    
+    Html.RenderAction("IssuePartial", "SingleIssue", Model.Id);
 }
 <div class="sidecontent">
     <a class="modalorder" href="#">

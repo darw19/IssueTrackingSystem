@@ -3,22 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using ITS.Domain.Entities;
-using ITS.Domain.Concrete;
+using ITS.Domain.Abstract;
 
 namespace ITS.Models
 {
     public class IssuesViewModel
     {
-        public IEnumerable<ApplicationUser> Users() { 
-        var users = new ITS.Domain.Concrete.EFUserRepository();
-        return users.Users;
-        }
-        public IEnumerable<Issue> Issues()
+        private IEnumerable<Issue> m_IssuesRepository;
+        private IEnumerable<ApplicationUser> m_UserRepository;
+        public IssuesViewModel(IEnumerable<ApplicationUser> userRepository,
+                               IEnumerable<Issue> issuesRepository)
         {
-            var issues = new ITS.Domain.Concrete.EFIssueRepository();
-            return issues.Issues;
+            this.m_UserRepository = userRepository;
+            this.m_IssuesRepository = issuesRepository;
         }
-        public IEnumerable<string> Statuses()
+
+        public IEnumerable<ApplicationUser> Users { get { return m_UserRepository; } }
+        public IEnumerable<Issue> Issues { get { return m_IssuesRepository; } }
+        public static IEnumerable<string> Statuses()
         {
             IEnumerable<string> statuses = new List<string>() { "Not started", "In progress", "Done" };
             return statuses;

@@ -14,9 +14,15 @@ namespace ITS.Controllers
     public class SingleIssueController : Controller
     {
         private IIssueRepository m_Repository;
-        public SingleIssueController(IIssueRepository repository)
+        private IUserRepository m_UserRepository;
+        public SingleIssueController(IIssueRepository repository): this(repository, null)
+        {
+        }
+
+        public SingleIssueController(IIssueRepository repository, IUserRepository userRepository)
         {
             this.m_Repository = repository;
+            this.m_UserRepository = userRepository;
         }
 
         private Issue getCurrentIssue(int? issueId)
@@ -84,13 +90,13 @@ namespace ITS.Controllers
             return RedirectToAction("Issue", "SingleIssue", new { issueId = commentVM.Comment.IssueId });
         }
 
-        [HttpGet]
-        public ViewResult UploadFile()
-        {
-            //AttachmentViewModel avm = new AttachmentViewModel();
-            //avm.Attachment.IssueId = issueId;
-            return View();
-        }        
+        //[HttpGet]
+        //public ViewResult UploadFile()
+        //{
+        //    //AttachmentViewModel avm = new AttachmentViewModel();
+        //    //avm.Attachment.IssueId = issueId;
+        //    return View();
+        //}        
 
         [HttpGet]
         public ActionResult DownloadFile(int ?currentIssueId, int ?fileId)
@@ -105,11 +111,11 @@ namespace ITS.Controllers
             }
         }
 
-        [HttpGet]
-        public ViewResult LogWork()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public ViewResult LogWork()
+        //{
+        //    return View();
+        //}
 
         [HttpPost]
         public ActionResult LogWork(WorkLog logItem)
@@ -142,6 +148,13 @@ namespace ITS.Controllers
             m_Repository.SaveIssue(currentIssue);
             m_Repository.SaveIssue(targetIssue);
             return RedirectToAction("Issue", "SingleIssue", new { issueId = firstIssueId });
+        }
+
+        [HttpGet]
+        public PartialViewResult IssuePartial(int? issueId, string userEmail)
+        {
+            ViewBag.UsersList = m_UserRepository.Users;
+            return PartialView("~/Views/Shared/_IssuePartial.cshtml", issueId == null ? new Issue() { UserEmail = userEmail } : getCurrentIssue(issueId));
         }
     }
 }

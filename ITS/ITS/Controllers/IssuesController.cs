@@ -20,7 +20,7 @@ namespace ITS.Controllers
         // GET: Issues
         public ActionResult Index()
         {
-            return View(issuesRepository);
+            return View(issuesRepository.Issues);
         }
     }
 }

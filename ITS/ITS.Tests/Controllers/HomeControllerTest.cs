@@ -50,5 +50,11 @@ namespace ITS.Tests.Controllers
             // Assert
             Assert.IsNotNull(result);
         }
+
+        [TestMethod]
+        public void StatisticsTest()
+        {
+
+        }
     }
 }

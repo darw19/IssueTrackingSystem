@@ -27,10 +27,5 @@ namespace ITS.Controllers
 
             return View();
         }
-
-        public ActionResult Statistics()
-        {
-            return View(new IssuesViewModel());
-        }
     }
 }

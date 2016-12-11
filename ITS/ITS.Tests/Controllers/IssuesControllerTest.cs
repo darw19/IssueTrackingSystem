@@ -16,6 +16,7 @@ namespace ITS.Tests.Controllers
     [TestClass]
     public class IssuesControllerTest
     {
+        [TestMethod]
         public void IndexTest()
         {
             //Arrange

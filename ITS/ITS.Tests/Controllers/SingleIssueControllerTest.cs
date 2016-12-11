@@ -16,6 +16,20 @@ namespace ITS.Tests.Controllers
     [TestClass]
     public class SingleIssueControllerTest
     {
+        private Mock<IIssueRepository> getIssuesMockForAddConnectionTest()
+        {
+            Mock<IIssueRepository> issuesMock = new Mock<IIssueRepository>();
+            issuesMock.Setup(x => x.Issues).Returns(new[]
+            {
+                new Issue() { Id = 1, Description = "First Issue Desc", Title = "First Issue Title", IssueConnections = new List<Issue>() },
+                new Issue() { Id = 2, Description = "Second Issue Desc", Title = "Second Issue Title", IssueConnections = new List<Issue>() },
+                new Issue() { Id = 3, Description = "Third Issue Desc", Title = "Third Issue Title", IssueConnections = new List<Issue>() }
+            });
+            issuesMock.Object.Issues.ElementAt(0).IssueConnections.Add(issuesMock.Object.Issues.ElementAt(2));
+            issuesMock.Object.Issues.ElementAt(2).IssueConnections.Add(issuesMock.Object.Issues.ElementAt(0));
+            return issuesMock;
+        }
+
         [TestMethod]
         public void IssueNotNullParameterGet()
         {
@@ -147,6 +161,65 @@ namespace ITS.Tests.Controllers
         }
 
         [TestMethod]
+        public void AddCommentModifyingExisting()
+        {
+            //Arrange
+            System.DateTime testTime = new System.DateTime(2016, 11, 11, 11, 11, 11);
+            Mock<IIssueRepository> mock = new Mock<IIssueRepository>();
+            SingleIssueController controller = new SingleIssueController(mock.Object);
+            var testComment = new Comment()
+            {
+                Id = 1,
+                IssueId = 3,
+                Text = "TEST_COMMENT_INIT",
+                CommentChanges = new List<CommentChange>()
+                            {
+                                new CommentChange() { Id = 1, CommentId = 1, UserEmail = "ten@gmail.com", 
+                                    TypeOfChange = "CREATION", TimeOfChange = testTime}
+                            }
+            };
+            var testIssues = new Issue[] {
+                new Issue { Id = 1, Description = "First Issue", UserEmail = "ten@gmail.com", Title = "First Issue" },
+                new Issue { Id = 2, Description = "Second Issue", UserEmail = "tenx@gmail.com", Title = "Second Issue" },
+                new Issue { Id = 3, Description = "Third Issue", UserEmail = "three@gmail.com", Title = "Third Issue",
+                Comments = new[]
+                    {
+                       testComment
+                    }
+                }
+            };
+            mock.Setup(m => m.Issues).Returns(testIssues);
+            Comment modifiedComment = new Comment()
+            {
+                Id = 1,
+                IssueId = 3,
+                Text = "TEST_COMMENT_MODIFIED",
+                CommentChanges = new List<CommentChange>()
+                            {
+                                new CommentChange() { Id = 1, CommentId = 1, UserEmail = "ten@gmail.com", 
+                                    TypeOfChange = "CREATION", TimeOfChange = testTime}
+                            }
+            };
+            modifiedComment.Text = "TEST_COMMENT_MODIFIED";
+            CommentViewModel testVm = new CommentViewModel()
+            {
+                UserEmail = "tenx@gmail.com",
+                Comment = modifiedComment
+            };
+
+            //Act
+            controller.AddComment(testVm);
+
+            //Assert
+            mock.Verify(x => x.SaveIssue(It.Is<Issue>(i => i.Title == testIssues[2].Title && i.Description == testIssues[2].Description
+                && i.Id == 3 && i.Comments.First(y => y.Text == "TEST_COMMENT_MODIFIED").IssueId == 3
+                && i.Comments.First(y => y.Text == "TEST_COMMENT_MODIFIED").CommentChanges.ElementAt(0).TypeOfChange == "CREATION"
+                && i.Comments.First(y => y.Text == "TEST_COMMENT_MODIFIED").CommentChanges.ElementAt(1).TypeOfChange == "MODIFICATION"
+                && i.Comments.First(y => y.Text == "TEST_COMMENT_MODIFIED").CommentChanges.ElementAt(1).Comment
+                == i.Comments.First(y => y.Text == "TEST_COMMENT_MODIFIED"))));
+        }
+
+        [TestMethod]
         public void IssueAddNew()
         {
             //Arrange
@@ -195,6 +268,145 @@ namespace ITS.Tests.Controllers
                             && i.WorkLogs.ElementAt(0).TimeOfLogging == wlItem.TimeOfLogging
                             && i.WorkLogs.ElementAt(0).UserId == wlItem.UserId)));
 
+        }
+
+        [TestMethod]
+        public void TestDownloadFileNullIssueId()
+        {
+            //Arrange
+            SingleIssueController controller = new SingleIssueController(null);
+
+            //Act
+            Exception resException = null;
+            try
+            {
+                controller.DownloadFile(null, 1);
+            } catch(Exception exc)
+            {
+                resException = exc;
+            }
+
+            //Assert
+            Assert.IsNotNull(resException);
+            Assert.AreEqual("Attempt to download invalid file", resException.Message);
+        }
+
+        [TestMethod]
+        public void TestDownloadFileNotNull()
+        {
+            //Arrange
+            Mock<IIssueRepository> mock = new Mock<IIssueRepository>();
+            mock.Setup(x => x.Issues).Returns(new[]
+            {
+                new Issue() { Id = 1, Title = "Issue with no attachments" },
+                new Issue() 
+                { Id = 2, Title = "Target issue", Attachments = new[]
+                    {
+                        new Attachment() 
+                        { Id = 1, IssueId = 2, Name = "TestAttachment", BinaryData = new byte[]
+                            {
+                                0xBA, 0xDF, 0x00, 0xD1
+                            }
+                        }
+                    }
+                }
+            });
+
+            SingleIssueController controller = new SingleIssueController(mock.Object);
+
+            //Act
+            FileContentResult resultedFile = controller.DownloadFile(2, 1) as FileContentResult;
+
+            //Assert
+            Assert.AreEqual("TestAttachment", resultedFile.FileDownloadName);
+            Assert.IsTrue(resultedFile.FileContents.SequenceEqual(mock.Object.Issues.ElementAt(1).Attachments.ElementAt(0).BinaryData));
+        }
+
+        [TestMethod]
+        public void TestIssuePartialNotNullIssueId()
+        {
+            //Arrange
+            Mock<IIssueRepository> issuesMock = new Mock<IIssueRepository>();
+            issuesMock.Setup(x => x.Issues).Returns(new[]
+            {
+                new Issue() { Id = 1, Description = "First Issue Desc", Title = "First Issue Title" },
+                new Issue() { Id = 2, Description = "Second Issue Desc", Title = "Second Issue Title"}
+            });
+
+            Mock<IUserRepository> usersMock = new Mock<IUserRepository>();
+            usersMock.Setup(x => x.Users).Returns(new[]
+            {
+                new ApplicationUser() { Name = "First UserName" },
+                new ApplicationUser() { Name = "Second UserName" }
+            });
+
+            SingleIssueController controller = new SingleIssueController(issuesMock.Object, usersMock.Object);
+
+            //Act
+            var notNullresult = controller.IssuePartial(1, "");
+
+            //Assert
+            Assert.IsTrue(usersMock.Object.Users.SequenceEqual(notNullresult.ViewData["UsersList"] as IEnumerable<ApplicationUser>));
+            var expectedIssue = issuesMock.Object.Issues.ElementAt(0);
+            var resultedIssue = notNullresult.ViewData.Model as Issue;
+            Assert.AreEqual(expectedIssue.Description, resultedIssue.Description);
+            Assert.AreEqual(expectedIssue.Title, resultedIssue.Title);
+        }
+
+        [TestMethod]
+        public void TestIssuePartialNullIssueId()
+        {
+            //Arrange
+            Mock<IUserRepository> usersMock = new Mock<IUserRepository>();
+            usersMock.Setup(x => x.Users).Returns(null as IEnumerable<ApplicationUser>);
+            SingleIssueController controller = new SingleIssueController(null, usersMock.Object);
+
+            //Act
+            var result = controller.IssuePartial(null, "");
+
+            //Assert
+            Assert.IsNotNull(result.ViewData.Model);
+            Assert.IsNull(result.ViewData["UsersList"]);
+            Assert.AreEqual(new Issue().Id, (result.ViewData.Model as Issue).Id);
+        }
+
+        [TestMethod]
+        public void TestAddIssueConnectionGet()
+        {
+            //Arrange
+            Mock<IIssueRepository> issuesMock = getIssuesMockForAddConnectionTest();
+
+            SingleIssueController controller = new SingleIssueController(issuesMock.Object);
+
+            //Act
+            var result = controller.AddIssueConnection(1);
+
+            //Assert
+            var resultModel = result.Model as IssueConnectionViewModel;
+            Assert.AreEqual(1, resultModel.FirstIssue.Id);
+            Assert.AreEqual("First Issue Desc", resultModel.FirstIssue.Description);
+            Assert.AreEqual("First Issue Title", resultModel.FirstIssue.Title);
+            Assert.IsTrue(resultModel.FirstIssue.IssueConnections.SequenceEqual(issuesMock.Object.Issues.ElementAt(0).IssueConnections));            
+        }
+
+        [TestMethod]
+        public void TestAddIssueConnectionPost()
+        {
+            //Arrange
+            var issuesMock = getIssuesMockForAddConnectionTest();
+
+            SingleIssueController controller = new SingleIssueController(issuesMock.Object);
+
+            //Act
+            var result = controller.AddIssueConnection(1, 2);
+
+            //Assert
+            var mockedIssue1 = issuesMock.Object.Issues.ElementAt(0);
+            var mockedIssue3 = issuesMock.Object.Issues.ElementAt(2);
+            issuesMock.Verify(x => x.SaveIssue(It.Is<Issue>(i => i.IssueConnections.ElementAt(0).Id == 3
+                                                              && i.IssueConnections.ElementAt(1).Id == 2
+                                                              && i.IssueConnections.Count == 2)));
+            issuesMock.Verify(x => x.SaveIssue(It.Is<Issue>(i => i.IssueConnections.ElementAt(0).Id == 1 && i.IssueConnections.Count == 1)));
         }
     }
 }
