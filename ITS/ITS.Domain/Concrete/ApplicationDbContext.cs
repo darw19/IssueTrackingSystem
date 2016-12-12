@@ -22,6 +22,19 @@ namespace ITS.Domain.Concrete
         {
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Issue>()
+    .HasMany(c => c.IssueConnections)
+    .WithMany(c => c.IssueConnectionsRelated)
+    .Map(m =>
+    {
+        m.MapLeftKey("IssueId");
+        m.MapRightKey("RelatedId");
+        m.ToTable("IssueConnections");
+    });
+        }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

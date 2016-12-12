@@ -29,6 +29,7 @@ namespace ITS.Domain.Concrete
                     }                    
                     dbEntry.Comments = issue.Comments;
                     dbEntry.Status = issue.Status;
+                    dbEntry.IssueConnections = issue.IssueConnections;
                 }
                 else
                 {

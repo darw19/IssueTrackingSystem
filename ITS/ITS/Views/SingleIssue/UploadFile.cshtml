@@ -3,6 +3,6 @@
 @using (Html.BeginForm("UploadFile", "Attachment", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <input type="hidden" name="attachment.Attachment.IssueId"  value="@Model.Attachment.IssueId"/>
-    <input type="file" name="attachment.Files" multiple/>
-    <input type="submit" />
+    <input type="file" name="attachment.Files" multiple style="display:inline" />
+    <input type="submit" style="display:inline" class="btn btn-info" />
 }

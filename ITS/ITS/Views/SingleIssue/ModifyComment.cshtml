@@ -1,10 +1,13 @@
 ﻿@model ITS.Models.CommentViewModel
 
-@using (Html.BeginForm("AddComment", "SingleIssue", FormMethod.Post, new { @id = "eForm" }))
+@using (Html.BeginForm("AddComment", "SingleIssue", FormMethod.Post, new { @id = "eForm", @style="display: inline; width:400px;"}))
 {
     @Html.HiddenFor(x => x.Comment.Id)
     @Html.HiddenFor(x => x.Comment.IssueId)
     @Html.HiddenFor(x => x.UserEmail)
-    @Html.TextAreaFor(x => x.Comment.Text)
-    <input type="submit" value="Save Change">
+    @Html.TextAreaFor(x => x.Comment.Text, new { @rows="4", @cols="50", @style="resize:horizontal"} )
+    <br />
+    <input type="submit" class="btn btn-info"  value="Save Change" style="display:inline">
+    <input type="button" value="Cancel" id="cancel-btn-@(Model.Comment.Id)" class="btn btn-info" onclick="toggle_visibility(@(Model.Comment.Id))" style="display:inline" />
+
 }
