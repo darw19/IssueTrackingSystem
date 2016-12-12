@@ -8,13 +8,39 @@
 }
 
 <h2>Statistics</h2>
-@{
-    var count = Model.Users().Count() - 1;
-    <li><h3>Total users: @count</h3></li>
-}
-<li><h3>Total issues: @Model.Issues().Count()</h3></li>
-<li><h3>Not started issues: @Model.Issues().Where(issue => issue.Status == "Not started").Count()</h3></li>
-<li><h3>In progress issues: @Model.Issues().Where(issue => issue.Status == "In progress").Count()</h3></li>
-<li><h3>Done issues: @Model.Issues().Where(issue => issue.Status == "Done").Count()</h3></li>
+
+<table class="table table-hover">
+    <col width="300px" />
+    <col width="350px" />
+    <col width="300px" />
+    <tr>
+        <th>Statistic</th>
+        <th>Value</th>
+    </tr>
+    <tr>
+        @{
+        var count = Model.Users().Count() - 1;
+        <td>Total users</td>
+        <td>@count</td>
+
+        }
+    </tr>
+<tr>
+        <td>Total issues</td>
+        <td>@Model.Issues().Count()</td>
+    </tr>
+    <tr>
+        <td>Not started issues</td>
+        <td>@Model.Issues().Where(issue => issue.Status == "Not started").Count()</td>
+    </tr>
+    <tr>
+        <td>In progress issues</td>
+        <td>@Model.Issues().Where(issue => issue.Status == "In progress")</td>
+    </tr>
+    <tr>
+        <td>Done issues</td>
+        <td>@Model.Issues().Where(issue => issue.Status == "Done")</td>
+    </tr>
+</table>
 
 
