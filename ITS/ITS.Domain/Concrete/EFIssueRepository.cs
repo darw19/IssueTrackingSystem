@@ -30,6 +30,13 @@ namespace ITS.Domain.Concrete
                     dbEntry.Comments = issue.Comments;
                     dbEntry.Status = issue.Status;
                     dbEntry.IssueConnections = issue.IssueConnections;
+                    if (issue.CompletedBy != null)
+                    {
+                        dbEntry.CompletedBy = context.Users.Find(issue.CompletedBy.Id);
+                    } else
+                    {
+                        dbEntry.CompletedBy = null;
+                    }
                 }
                 else
                 {

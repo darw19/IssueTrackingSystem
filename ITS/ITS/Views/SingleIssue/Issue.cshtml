@@ -42,9 +42,12 @@
         </div>
     </div>
 </div>
+
+<h3>Current status: @Model.Status</h3>
+
 @{
     
-    Html.RenderAction("IssuePartial", "SingleIssue", Model.Id);
+    Html.RenderAction("IssuePartial", "SingleIssue", new { issueId = Model.Id, userEmail = User.Identity.GetUserId() });
 }
 
 <br />

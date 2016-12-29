@@ -1,0 +1,27 @@
+﻿@using ITS.Domain.Abstract
+@using ITS.Domain.Entities
+@using ITS.Models
+@model CompletedIssuesViewModel
+
+@{
+    ViewBag.Title = "Completed Issues";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Below is the list of the issues completed by @Model.CurrentUser.Email</h3>
+
+<p>
+    @using (Html.BeginForm("RequestData", "CompletedIssues", FormMethod.Post))
+    {
+        @Html.DropDownListFor(x => x.CurrentUser.Email, new SelectList(@Model.Users.Where(x => x.Email != "Unassigned"), "Email", "Username"))
+        <input type="submit" value="Submit" />
+    }
+</p>
+
+
+<div>
+    @foreach (var x in @Model.Issues)
+    {
+        <p>@x.Title</p>
+    }
+</div>

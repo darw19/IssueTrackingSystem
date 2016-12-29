@@ -46,6 +46,13 @@ namespace ITS.Controllers
         [HttpPost]
         public ActionResult Issue(Issue issue)
         {
+            if (issue.Status == "Done")
+            {
+                /* Do nothing - completed by field is set up */
+            } else
+            {
+                issue.CompletedBy = null;
+            }
             m_Repository.SaveIssue(issue);
             return RedirectToAction("Index", "Issues");
         }
@@ -154,7 +161,18 @@ namespace ITS.Controllers
         public PartialViewResult IssuePartial(int? issueId, string userEmail)
         {
             ViewBag.UsersList = m_UserRepository.Users;
-            return PartialView("~/Views/Shared/_IssuePartial.cshtml", issueId == null ? new Issue() { UserEmail = userEmail } : getCurrentIssue(issueId));
+            Issue reqIssue = null;
+            if (issueId == null)
+            {
+                reqIssue = new Issue() { UserEmail = userEmail };
+
+            } else
+            {
+                reqIssue = getCurrentIssue(issueId);
+                reqIssue.CompletedBy = new ApplicationUser();
+                reqIssue.CompletedBy.Id = userEmail;
+            }
+            return PartialView("~/Views/Shared/_IssuePartial.cshtml", reqIssue);
         }
     }
 }

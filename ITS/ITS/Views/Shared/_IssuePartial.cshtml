@@ -1,4 +1,5 @@
 ﻿@model ITS.Domain.Entities.Issue
+@using Microsoft.AspNet.Identity
 
     <div id="edit-dialog" title="Edit issue" class="order_bg" style="display:none">
         @using (Html.BeginForm("Issue", "SingleIssue", FormMethod.Post, new { @id = "sForm" }))
@@ -24,6 +25,7 @@
                 <div>@Html.LabelFor(x => x.Status)</div>
                 @Html.DropDownListFor(x => x.Status, new SelectList(statuses))
                 @Html.HiddenFor(x => x.UserEmail)
+                @Html.HiddenFor(x => x.CompletedBy.Id)
             </div>
                         
             <input type="submit" id="issue-submit" value="Submit" style="display:none" />

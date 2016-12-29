@@ -37,6 +37,9 @@ namespace ITS.Domain.Entities
         public virtual ICollection<BaseChange> BaseChanges { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkLog> WorkLogs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Issue> CompletedIssues { get; set; }
+
     }
 }
 

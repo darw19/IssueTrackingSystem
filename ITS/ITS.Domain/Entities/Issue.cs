@@ -26,6 +26,7 @@ namespace ITS.Domain.Entities
         public string Status { get; set; }
     
         public virtual ApplicationUser AssignedTo { get; set; }
+        public virtual ApplicationUser CompletedBy { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Attachment> Attachments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
